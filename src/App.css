@@ -1,38 +1,878 @@
-.App {
-  text-align: center;
+/* ------------------------------------------------------------
+   ROOT VARIABLES
+-------------------------------------------------------------*/
+:root{
+  --sky:#4da8ff;
+  --sky2:#2f86e6;
+  --text:#ffffff;
+  --soft:rgba(255,255,255,0.82);
+  --border:rgba(255,255,255,0.22);
+  --panel:rgba(255,255,255,0.10);
+  --panel2:rgba(255,255,255,0.14);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  box-sizing:border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:linear-gradient(180deg,var(--sky),var(--sky2));
+  color:var(--text);
+}
+
+button,
+input{
+  font:inherit;
+}
+
+/* ------------------------------------------------------------
+   APP WRAPPER
+-------------------------------------------------------------*/
+.app{
+  min-height:100vh;
+  padding:36px 20px 52px;
+  position:relative;
+  overflow:hidden;
+}
+
+.app::before{
+  content:"";
+  position:fixed;
+  width:420px;
+  height:420px;
+  top:-120px;
+  right:-120px;
+  background:radial-gradient(circle, rgba(255,255,255,0.16), transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.app::after{
+  content:"";
+  position:fixed;
+  width:360px;
+  height:360px;
+  bottom:-120px;
+  left:-100px;
+  background:radial-gradient(circle, rgba(255,255,255,0.10), transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.page{
+  width:min(1180px, 100%);
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+}
+
+/* ------------------------------------------------------------
+   HEADER
+-------------------------------------------------------------*/
+.pageHeader{
+  text-align:center;
+  margin-bottom:26px;
+}
+
+.brand{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  font-weight:900;
+  font-size:48px;
+  letter-spacing:-0.8px;
+}
+
+.brandDot{
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:white;
+  box-shadow:0 0 0 9px rgba(255,255,255,0.08);
+}
+
+.brandSubtitle{
+  margin:12px 0 0;
+  color:var(--soft);
+  font-size:17px;
+  font-weight:500;
+}
+
+/* ------------------------------------------------------------
+   REUSABLE CARD STYLE
+-------------------------------------------------------------*/
+.sectionCard{
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.20);
+  border-radius:28px;
+  padding:24px;
+  margin-bottom:22px;
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+}
+
+.searchCard{
+  padding-top:22px;
+}
+
+/* ------------------------------------------------------------
+   SEARCH AREA
+-------------------------------------------------------------*/
+.searchRow{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:16px;
+}
+
+.input{
+  width:min(500px, 100%);
+  height:52px;
+  border:none;
+  outline:none;
+  border-radius:18px;
+  background:rgba(0,0,0,0.16);
+  border:1px solid var(--border);
+  color:white;
+  padding:0 16px;
+  font-size:15px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.input::placeholder{
+  color:rgba(255,255,255,0.72);
+}
+
+.input:focus{
+  border-color:rgba(255,255,255,0.45);
+  box-shadow:
+    0 0 0 4px rgba(255,255,255,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.actionButton,
+.ghostButton,
+.miniButton{
+  height:48px;
+  border:none;
+  border-radius:18px;
+  padding:0 18px;
+  cursor:pointer;
+  font-weight:700;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.actionButton:hover,
+.ghostButton:hover,
+.miniButton:hover,
+.savedChipMain:hover,
+.savedChipDelete:hover,
+.settingsToggle:hover,
+.settingsClose:hover{
+  transform:translateY(-2px);
+}
+
+.actionButton{
+  background:white;
+  color:#15456d;
+  box-shadow:0 8px 20px rgba(0,0,0,0.10);
+}
+
+.ghostButton{
+  background:rgba(255,255,255,0.14);
+  color:white;
+  border:1px solid var(--border);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.miniButton{
+  background:rgba(255,255,255,0.14);
+  color:white;
+  border:2px solid var(--border);
+  height:42px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.locationActions{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.defaultTag{
+  padding:10px 14px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid var(--border);
+  font-size:14px;
+}
+
+.savedSection{
+  margin-top:8px;
+}
+
+.sectionTitle{
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:16px;
+  letter-spacing:-0.4px;
+}
+
+.savedList{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.savedChip{
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.10);
+}
+
+.savedChipActive{
+  background:rgba(255,255,255,0.22);
+}
+
+.savedChipMain,
+.savedChipDelete{
+  border:none;
+  background:transparent;
+  color:white;
+  cursor:pointer;
+  padding:10px 13px;
+}
+
+.savedChipDelete{
+  border-left:1px solid rgba(255,255,255,0.18);
+}
+
+/* ------------------------------------------------------------
+   BANNERS
+-------------------------------------------------------------*/
+.infoBanner,
+.errorBanner{
+  text-align:center;
+  padding:13px 15px;
+  border-radius:18px;
+  margin-bottom:16px;
+}
+
+.infoBanner{
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(6px);
+}
+
+.errorBanner{
+  background:rgba(255,80,80,0.18);
+  border:1px solid rgba(255,180,180,0.3);
+  backdrop-filter:blur(6px);
+}
+
+/* ------------------------------------------------------------
+   HERO CARD
+-------------------------------------------------------------*/
+.heroCard{
+  text-align:center;
+}
+
+.heroTop{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.condition{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+}
+
+.weatherIconMain{
+  width:92px;
+  height:92px;
+  object-fit:contain;
+}
+
+.condText{
+  text-align:left;
+}
+
+.condTitle{
+  font-size:38px;
+  font-weight:900;
+  line-height:1.05;
+  letter-spacing:-0.6px;
+}
+
+.condSub{
+  color:var(--soft);
+  margin-top:5px;
+  font-size:15px;
+}
+
+.tempCenterBlock{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  margin-top:18px;
+}
+
+/* Selected location badge shown prominently in hero section */
+.heroLocation{
+  margin-bottom:12px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.18);
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:-0.3px;
+  color:white;
+  text-align:center;
+}
+
+.temp{
+  font-size:102px;
+  line-height:0.95;
+  font-weight:900;
+  letter-spacing:-3px;
+}
+
+.feels{
+  margin-top:12px;
+  color:var(--soft);
+  font-size:17px;
+  font-weight:500;
+}
+
+.dateLine{
+  text-align:center;
+  margin-top:20px;
+  font-size:30px;
+  font-weight:800;
+  letter-spacing:-0.5px;
+}
+
+/* ------------------------------------------------------------
+   ALERTS
+-------------------------------------------------------------*/
+.alertsList{
+  display:grid;
+  gap:10px;
+}
+
+.alertItem{
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.14);
+  border:1px solid var(--border);
+  font-weight:600;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* ------------------------------------------------------------
+   DETAILED WEATHER GRID
+-------------------------------------------------------------*/
+.statsGrid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:14px;
+}
+
+.statCard{
+  padding:22px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid var(--border);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.statLabel{
+  font-size:13px;
+  color:var(--soft);
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+  font-weight:700;
+}
+
+.statValue{
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-0.8px;
+}
+
+/* ------------------------------------------------------------
+   HOURLY FORECAST
+-------------------------------------------------------------*/
+.hourlyRow{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:14px;
+}
+
+.hourCard{
+  padding:18px 16px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid var(--border);
+  text-align:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.hourTime{
+  font-size:13px;
+  color:var(--soft);
+}
+
+.hourIcon{
+  width:46px;
+  height:46px;
+  object-fit:contain;
+  margin:10px auto;
+  display:block;
+}
+
+.hourTemp{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-0.5px;
+}
+
+.hourMeta{
+  margin-top:6px;
+  font-size:13px;
+  color:var(--soft);
+}
+
+/* ------------------------------------------------------------
+   WEEKLY FORECAST
+-------------------------------------------------------------*/
+.weekGrid{
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:14px;
+}
+
+.dayCard{
+  padding:18px 16px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid var(--border);
+  text-align:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.dayName{
+  font-weight:800;
+  margin-bottom:8px;
+  font-size:16px;
+}
+
+.dayIcon{
+  width:46px;
+  height:46px;
+  object-fit:contain;
+  margin:0 auto 8px;
+  display:block;
+}
+
+.dayDesc{
+  min-height:34px;
+  font-size:13px;
+  color:var(--soft);
+  margin-bottom:10px;
+}
+
+.dayTemps{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-0.5px;
+}
+
+.mutedTemp{
+  color:var(--soft);
+}
+
+.dayRain{
+  margin-top:8px;
+  font-size:13px;
+  color:var(--soft);
+}
+
+/* ------------------------------------------------------------
+   SETTINGS BUTTON
+-------------------------------------------------------------*/
+.settingsToggle{
+  position:fixed;
+  top:18px;
+  left:18px;
+  z-index:1002;
+  width:50px;
+  height:50px;
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  font-size:22px;
+  background:rgba(255,255,255,0.18);
+  color:white;
+  border:1px solid rgba(255,255,255,0.25);
+  backdrop-filter:blur(10px);
+  box-shadow:0 10px 24px rgba(0,0,0,0.10);
+}
+
+/* ------------------------------------------------------------
+   SETTINGS OVERLAY
+-------------------------------------------------------------*/
+.settingsOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  z-index:999;
+}
+
+/* ------------------------------------------------------------
+   SETTINGS PANEL
+-------------------------------------------------------------*/
+.settingsPanel{
+  position:fixed;
+  top:0;
+  left:0;
+  width:320px;
+  max-width:85vw;
+  height:100vh;
+  padding:24px;
+  background:linear-gradient(180deg, rgba(12,24,40,0.98), rgba(18,36,60,0.96));
+  color:white;
+  z-index:1001;
+  transform:translateX(-100%);
+  transition:transform 0.28s ease;
+  box-shadow:12px 0 40px rgba(0,0,0,0.28);
+  overflow-y:auto;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+
+.settingsPanelOpen{
+  transform:translateX(0);
+}
+
+.settingsHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.settingsHeader h2{
+  margin:0;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-0.8px;
+}
+
+.settingsClose{
+  border:none;
+  background:transparent;
+  color:white;
+  font-size:30px;
+  cursor:pointer;
+}
+
+.settingsBlock{
+  margin-bottom:24px;
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+}
+
+.settingsLabel{
+  font-size:16px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+.settingsRow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.settingsRow .miniButton{
+  min-width:140px;
+  text-align:center;
+}
+
+.activeSetting{
+  background:white;
+  color:#1d4f7c;
+  border:2px solid white;
+}
+
+/* ------------------------------------------------------------
+   NORMAL THEME
+-------------------------------------------------------------*/
+.themeNormal{
+  --pageBg1:#4da8ff;
+  --pageBg2:#2f86e6;
+  --pageText:#ffffff;
+  --pageSoft:rgba(255,255,255,0.82);
+  --pagePanel:rgba(255,255,255,0.12);
+  --pageBorder:rgba(255,255,255,0.22);
+  --pageInputBg:rgba(0,0,0,0.16);
+  --pagePrimaryButtonBg:#ffffff;
+  --pagePrimaryButtonText:#15456d;
+  --pageSecondaryButtonBg:rgba(255,255,255,0.14);
+  --pageSecondaryButtonText:#ffffff;
+}
+
+.themeNormal{
+  background:linear-gradient(180deg,var(--pageBg1),var(--pageBg2));
+  color:var(--pageText);
+}
+
+/* ------------------------------------------------------------
+   HIGH CONTRAST THEME
+-------------------------------------------------------------*/
+.themeContrast{
+  --pageBg1:#d7f200;
+  --pageBg2:#fff200;
+  --pageText:#000000;
+  --pageSoft:rgba(0,0,0,0.78);
+  --pagePanel:rgba(255,255,255,0.95);
+  --pageBorder:#000000;
+  --pageInputBg:#ffffff;
+  --pagePrimaryButtonBg:#000000;
+  --pagePrimaryButtonText:#ffffff;
+  --pageSecondaryButtonBg:#ffffff;
+  --pageSecondaryButtonText:#000000;
+}
+
+.themeContrast{
+  background:linear-gradient(180deg,var(--pageBg1),var(--pageBg2));
+  color:var(--pageText);
+}
+
+.themeNormal .sectionCard,
+.themeContrast .sectionCard{
+  background:var(--pagePanel);
+  border:1px solid var(--pageBorder);
+}
+
+.themeNormal .brandSubtitle,
+.themeNormal .condSub,
+.themeNormal .feels,
+.themeNormal .statLabel,
+.themeNormal .hourTime,
+.themeNormal .hourMeta,
+.themeNormal .dayDesc,
+.themeNormal .dayRain,
+.themeNormal .mutedTemp{
+  color:var(--pageSoft);
+}
+
+.themeContrast .brandSubtitle,
+.themeContrast .condSub,
+.themeContrast .feels,
+.themeContrast .statLabel,
+.themeContrast .hourTime,
+.themeContrast .hourMeta,
+.themeContrast .dayDesc,
+.themeContrast .dayRain,
+.themeContrast .mutedTemp{
+  color:var(--pageSoft);
+}
+
+.themeNormal .input,
+.themeContrast .input{
+  background:var(--pageInputBg);
+  color:var(--pageText);
+  border:1px solid var(--pageBorder);
+}
+
+.themeNormal .input::placeholder{
+  color:rgba(255,255,255,0.72);
+}
+
+.themeContrast .input::placeholder{
+  color:rgba(0,0,0,0.62);
+}
+
+.themeNormal .ghostButton,
+.themeNormal .miniButton,
+.themeNormal .defaultTag,
+.themeNormal .savedChip,
+.themeNormal .hourCard,
+.themeNormal .dayCard,
+.themeNormal .statCard,
+.themeNormal .alertItem,
+.themeNormal .infoBanner{
+  background:var(--pageSecondaryButtonBg);
+  color:var(--pageSecondaryButtonText);
+  border:2px solid var(--pageBorder);
+}
+
+.themeContrast .ghostButton,
+.themeContrast .miniButton,
+.themeContrast .defaultTag,
+.themeContrast .savedChip,
+.themeContrast .hourCard,
+.themeContrast .dayCard,
+.themeContrast .statCard,
+.themeContrast .alertItem,
+.themeContrast .infoBanner{
+  background:var(--pageSecondaryButtonBg);
+  color:var(--pageSecondaryButtonText);
+  border:2px solid var(--pageBorder);
+}
+
+.themeNormal .actionButton{
+  background:var(--pagePrimaryButtonBg);
+  color:var(--pagePrimaryButtonText);
+}
+
+.themeContrast .actionButton{
+  background:var(--pagePrimaryButtonBg);
+  color:var(--pagePrimaryButtonText);
+  border:2px solid #000000;
+}
+
+.themeContrast .savedChipMain,
+.themeContrast .savedChipDelete,
+.themeContrast .ghostButton,
+.themeContrast .miniButton,
+.themeContrast .defaultTag,
+.themeContrast .sectionTitle,
+.themeContrast .statValue,
+.themeContrast .dayName,
+.themeContrast .condTitle,
+.themeContrast .temp,
+.themeContrast .dateLine,
+.themeContrast .hourTemp{
+  color:#000000;
+}
+
+/* Make selected location badge readable in contrast mode */
+.themeContrast .heroLocation{
+  background:#ffffff;
+  border:2px solid #000000;
+  color:#000000;
+}
+
+.themeContrast .savedChipActive{
+  background:#ffe600;
+}
+
+.themeContrast .settingsToggle{
+  background:#000000;
+  color:#ffffff;
+  border:2px solid #ffffff;
+}
+
+.themeContrast .activeSetting{
+  background:#000000;
+  color:#ffffff;
+  border:2px solid #000000;
+}
+
+.themeContrast .errorBanner{
+  background:#ffdddd;
+  color:#000000;
+  border:2px solid #cc0000;
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVE STYLES
+-------------------------------------------------------------*/
+@media (max-width: 900px){
+  .statsGrid{
+    grid-template-columns:repeat(2, 1fr);
+  }
+
+  .hourlyRow{
+    grid-template-columns:repeat(2, 1fr);
+  }
+
+  .weekGrid{
+    grid-template-columns:repeat(2, 1fr);
+  }
+
+  .brand{
+    font-size:36px;
+  }
+
+  .temp{
+    font-size:78px;
+  }
+
+  .dateLine{
+    font-size:24px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 560px){
+  .app{
+    padding:28px 14px 42px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .brand{
+    font-size:30px;
+  }
+
+  .brandSubtitle{
+    font-size:14px;
+  }
+
+  .condTitle{
+    font-size:28px;
+  }
+
+  .weatherIconMain{
+    width:76px;
+    height:76px;
+  }
+
+  .heroLocation{
+    font-size:18px;
+    padding:7px 12px;
+  }
+
+  .temp{
+    font-size:62px;
+    letter-spacing:-2px;
+  }
+
+  .dateLine{
+    font-size:20px;
+  }
+
+  .statsGrid,
+  .hourlyRow,
+  .weekGrid{
+    grid-template-columns:1fr;
+  }
+
+  .settingsPanel{
+    width:280px;
   }
 }
