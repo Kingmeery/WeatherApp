@@ -11,6 +11,7 @@ import Alerts from "./Components/Alerts";
 import WeatherStats from "./Components/WeatherStats";
 import HourlyForecast from "./Components/HourlyForecast";
 import WeeklyForecast from "./Components/WeeklyForecast";
+import GardenAdvice from "./Components/GardenAdvice";
 
 /*
   Import helper functions
@@ -398,7 +399,13 @@ export default function Weather() {
             />
 
             <Alerts alerts={alerts} />
-
+            
+            <GardenAdvice
+            currentWeather={currentWeather}
+            rainfallChance={rainfallChance}
+            getFrostRisk={getFrostRisk}
+          />
+          
             <WeatherStats
               currentWeather={currentWeather}
               tempUnit={tempUnit}

@@ -801,6 +801,28 @@ input{
   border:2px solid #cc0000;
 }
 
+.themeContrast .adviceCard {
+  background: transparent;
+  border: 2px solid black;
+  color: black;
+}
+
+.adviceList{
+  display:grid;
+  gap:12px;
+}
+
+.adviceCard{
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:18px;
+  padding:14px 16px;
+  font-size:16px;
+  font-weight:600;
+  line-height:1.5;
+  color:inherit;
+}
+
 /* ------------------------------------------------------------
    RESPONSIVE STYLES
 -------------------------------------------------------------*/
