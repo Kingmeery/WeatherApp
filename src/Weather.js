@@ -292,7 +292,6 @@ export default function Weather() {
         <header className="pageHeader">
 
           <div className="brand">
-            <span className="brandDot" />
             <span>Agriculture</span>
           </div>
 
