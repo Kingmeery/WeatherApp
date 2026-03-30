@@ -786,3 +786,125 @@ input {
     width: 280px;
   }
 }
+
+
+/* =========================================================
+  MAP TOGGLE BUTTON & OVERLAY - EVERYTHING BELOW HERE ONWARDS 
+========================================================= */
+.mapToggleBtn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 1000;
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 800;
+  background: var(--page-settings-toggle-bg);
+  color: var(--page-settings-toggle-text);
+  border: 2px solid var(--page-settings-toggle-border);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.mapToggleBtn:hover {
+  transform: translateY(-2px);
+  background: var(--page-chip-active);
+}
+
+.themeContrast .mapToggleBtn {
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+/* Modal Overlay */
+.mapOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Modal Box */
+.mapContainerBox {
+  background: var(--page-panel);
+  border: 1px solid var(--page-border);
+  border-radius: 28px;
+  width: min(800px, 100%);
+  height: min(600px, 80vh);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.themeContrast .mapContainerBox {
+  background: #ffffff;
+  border: 4px solid #000000;
+}
+
+/* Header inside Map */
+.mapHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: var(--page-primary-button-bg);
+  color: var(--page-primary-button-text);
+}
+
+.themeContrast .mapHeader {
+  background: #000000;
+  color: #ffffff;
+  border-bottom: 2px solid #000000;
+}
+
+.mapTip {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.mapCloseBtn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.mapWrapper {
+  flex: 1;
+  width: 100%;
+}
+
+/* =========================================================
+  MAP CONFIRM BUTTON
+========================================================= */
+.mapConfirmArea {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* keep the button above the leaflet map layers */
+}
+
+.confirmPinBtn {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  font-size: 16px;
+  padding: 0 28px;
+  border-radius: 999px; /* makes it pill shaped*/
+}
+
+.themeContrast .confirmPinBtn {
+  box-shadow: 0 0 0 4px #000000;
+}

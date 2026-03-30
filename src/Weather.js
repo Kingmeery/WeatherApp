@@ -12,6 +12,7 @@ import WeatherStats from "./Components/WeatherStats";
 import HourlyForecast from "./Components/HourlyForecast";
 import WeeklyForecast from "./Components/WeeklyForecast";
 import GardenAdvice from "./Components/GardenAdvice";
+import Map from "./Components/Map";
 
 /*
   Import helper functions
@@ -58,6 +59,8 @@ export default function Weather() {
   const [loading, setLoading] = useState(false);
 
   const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const [mapOpen, setMapOpen] = useState(false);
 
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "normal"
@@ -287,6 +290,15 @@ export default function Weather() {
         setTempUnit={setTempUnit}
       />
 
+      <button
+        className="mapToggleBtn"
+        onClick={() => setMapOpen(true)}
+        aria-label="Open Map"
+      >
+        View Map
+      </button>
+
+
       <main className="page">
 
         <header className="pageHeader">
@@ -432,6 +444,19 @@ export default function Weather() {
         )}
 
       </main>
+
+            {/* rendr of the Map modal when mapOpen is true. Hooks directly into his existing fetchWeatherByCoords! */}
+      {mapOpen && (
+        <Map
+          lat={currentWeather?.coord?.lat}
+          lon={currentWeather?.coord?.lon}
+          onLocationSelect={(lat, lon) => {
+            fetchWeatherByCoords(lat, lon);
+            setMapOpen(false); // Closes automatically after dropping pin
+          }}
+          onClose={() => setMapOpen(false)}
+        />
+      )}
 
     </div>
   );

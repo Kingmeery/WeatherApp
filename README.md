@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Before running 
+
+Please ensure you install the latest form of React and all the dependencies before running the project.
+
+### 'npm install' 
+
+Runs the installation process for React. If the app does not work, please run the following commands 
+
+### 'npm install leaflet react-leaflet' 
+
+This helps install the assets required to the use the apps map features.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -68,3 +80,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
