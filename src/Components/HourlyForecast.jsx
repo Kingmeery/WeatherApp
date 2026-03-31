@@ -1,15 +1,21 @@
 export default function HourlyForecast({
   hourlyForecast,
+  selectedDay,
   tempUnit,
   formatTemperature,
   formatTimeFromUnix,
 }) {
+  const displayForecast =
+    selectedDay?.entries && selectedDay.entries.length > 0
+      ? selectedDay.entries
+      : hourlyForecast;
+
   return (
     <section className="sectionCard">
       <div className="sectionTitle">Hourly Forecast</div>
 
       <div className="hourlyRow">
-        {hourlyForecast.map((item) => (
+        {displayForecast.map((item) => (
           <div className="hourCard" key={item.dt}>
             <div className="hourTime">{formatTimeFromUnix(item.dt)}</div>
 

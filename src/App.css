@@ -908,3 +908,323 @@ input {
 .themeContrast .confirmPinBtn {
   box-shadow: 0 0 0 4px #000000;
 }
+
+/* =========================================================
+   FARM ACTIONS / GARDEN ADVICE
+   Styled to behave like the map popup
+========================================================= */
+
+.adviceDayToggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.adviceDayButton {
+  border: 1px solid var(--page-border);
+  background: var(--page-secondary-button-bg);
+  color: var(--page-secondary-button-text);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease, border 0.18s ease;
+}
+
+.adviceDayButton:hover {
+  transform: translateY(-2px);
+}
+
+.adviceDayButtonActive {
+  background: var(--page-primary-button-bg);
+  color: var(--page-primary-button-text);
+  border: 2px solid var(--page-border);
+}
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.actionWidget {
+  border: 1px solid var(--page-advice-border);
+  background: var(--page-advice-bg);
+  color: inherit;
+  border-radius: 20px;
+  padding: 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border 0.18s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.actionWidget:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
+}
+
+.actionWidget:focus {
+  outline: none;
+}
+
+.actionWidgetTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.actionWidgetIcon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.actionWidgetTitle {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.actionWidgetStatus {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.actionWidgetSummary {
+  font-size: 14px;
+  color: var(--page-soft);
+  line-height: 1.4;
+}
+
+/* ---------- FULLSCREEN OVERLAY LIKE MAP ---------- */
+.adviceModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 27, 48, 0.58);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  z-index: 9999;
+}
+
+/* ---------- POPUP CARD LIKE MAP WINDOW ---------- */
+.adviceModal {
+  width: min(760px, 92vw);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #f7f7f7;
+  color: #123a63;
+  border-radius: 30px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+}
+
+/* ---------- HEADER STRIP ---------- */
+.adviceModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 26px 16px;
+}
+
+.adviceModalTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #123a63;
+}
+
+.adviceModalClose {
+  border: none;
+  background: transparent;
+  color: #123a63;
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.adviceModalClose:hover {
+  opacity: 0.75;
+}
+
+/* ---------- BODY AREA ---------- */
+.adviceModalBody {
+  padding: 0 26px 26px;
+}
+
+.adviceModalStatus {
+  font-size: 30px;
+  font-weight: 900;
+  color: #123a63;
+  margin-bottom: 14px;
+}
+
+.adviceModalText {
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 0 0 14px;
+  color: #234c75;
+}
+
+.adviceModalMeta {
+  font-size: 15px;
+  color: #4b6783;
+  margin-top: 8px;
+}
+
+/* ---------- OPTIONAL INFO BOXES INSIDE MODAL ---------- */
+.adviceModalInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.adviceModalInfoCard {
+  background: #ffffff;
+  border: 1px solid rgba(18, 58, 99, 0.12);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.adviceModalInfoLabel {
+  font-size: 13px;
+  font-weight: 800;
+  color: #5a7691;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.adviceModalInfoValue {
+  font-size: 18px;
+  font-weight: 800;
+  color: #123a63;
+}
+
+/* ---------- HIGH CONTRAST MODE ---------- */
+.themeContrast .adviceDayButton {
+  border: 2px solid #000000;
+  background: #ffffff;
+  color: #000000;
+}
+
+.themeContrast .adviceDayButtonActive {
+  background: #000000;
+  color: #ffffff;
+}
+
+.themeContrast .actionWidget {
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: none;
+}
+
+.themeContrast .actionWidgetSummary {
+  color: #222222;
+}
+
+.themeContrast .adviceModalOverlay {
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: none;
+}
+
+.themeContrast .adviceModal {
+  background: #ffffff;
+  color: #000000;
+  border: 3px solid #000000;
+  box-shadow: none;
+}
+
+.themeContrast .adviceModalTitle,
+.themeContrast .adviceModalClose,
+.themeContrast .adviceModalStatus,
+.themeContrast .adviceModalText,
+.themeContrast .adviceModalMeta,
+.themeContrast .adviceModalInfoValue {
+  color: #000000;
+}
+
+.themeContrast .adviceModalInfoLabel {
+  color: #222222;
+}
+
+.themeContrast .adviceModalInfoCard {
+  background: #ffffff;
+  border: 2px solid #000000;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .actionGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .adviceModal {
+    width: min(680px, 94vw);
+  }
+}
+
+@media (max-width: 560px) {
+  .actionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .adviceDayToggle {
+    gap: 8px;
+  }
+
+  .adviceDayButton {
+    padding: 9px 12px;
+  }
+
+  .actionWidget {
+    padding: 16px;
+  }
+
+  .actionWidgetTitle {
+    font-size: 16px;
+  }
+
+  .actionWidgetStatus {
+    font-size: 18px;
+  }
+
+  .adviceModal {
+    width: 94vw;
+    border-radius: 24px;
+  }
+
+  .adviceModalHeader {
+    padding: 18px 20px 14px;
+  }
+
+  .adviceModalBody {
+    padding: 0 20px 20px;
+  }
+
+  .adviceModalTitle {
+    font-size: 20px;
+  }
+
+  .adviceModalStatus {
+    font-size: 24px;
+  }
+
+  .adviceModalText {
+    font-size: 15px;
+  }
+
+  .adviceModalInfoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
