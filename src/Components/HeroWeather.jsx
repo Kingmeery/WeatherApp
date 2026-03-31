@@ -1,3 +1,4 @@
+import "../Styling/HeroWeather.css";
 export default function HeroWeather({
   currentWeather,
   tempUnit,

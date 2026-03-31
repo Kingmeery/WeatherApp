@@ -1,3 +1,4 @@
+import "../Styling/SettingsPanel.css";
 export default function SettingsPanel({
   settingsOpen,
   setSettingsOpen,

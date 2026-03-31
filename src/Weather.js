@@ -6,6 +6,7 @@ import "./App.css";
   Import UI components
 */
 import SettingsPanel from "./Components/SettingsPanel";
+import LocationManager from "./Components/LocationManager";
 import HeroWeather from "./Components/HeroWeather";
 import Alerts from "./Components/Alerts";
 import WeatherStats from "./Components/WeatherStats";
@@ -13,6 +14,7 @@ import HourlyForecast from "./Components/HourlyForecast";
 import WeeklyForecast from "./Components/WeeklyForecast";
 import GardenAdvice from "./Components/GardenAdvice";
 import Map from "./Components/Map";
+
 
 /*
   Import helper functions
@@ -388,73 +390,17 @@ export default function Weather() {
           </p>
         </header>
 
-        <section className="sectionCard searchCard">
-          <form className="searchRow" onSubmit={handleSearchSubmit}>
-            <input
-              className="input"
-              type="text"
-              placeholder="Search location..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-
-            <button className="actionButton" type="submit">
-              Search
-            </button>
-
-            <button
-              className="ghostButton"
-              type="button"
-              onClick={handleUseMyLocation}
-            >
-              Use GPS
-            </button>
-          </form>
-
-          <div className="locationActions">
-            <button
-              type="button"
-              className="miniButton"
-              onClick={handleAddSavedLocation}
-            >
-              Save Current Location
-            </button>
-
-            <div className="defaultTag">Default: {activeLocation}</div>
-          </div>
-
-          {/* SAVED LOCATIONS */}
-          <div className="savedSection">
-            <div className="sectionTitle">Saved Locations</div>
-
-            <div className="savedList">
-              {savedLocations.map((location) => (
-                <div
-                  className={`savedChip ${
-                    location === activeLocation ? "savedChipActive" : ""
-                  }`}
-                  key={location}
-                >
-                  <button
-                    type="button"
-                    className="savedChipMain"
-                    onClick={() => setActiveLocation(location)}
-                  >
-                    {location}
-                  </button>
-
-                  <button
-                    type="button"
-                    className="savedChipDelete"
-                    onClick={() => handleDeleteLocation(location)}
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+      <LocationManager
+        query={query}
+        setQuery={setQuery}
+        handleSearchSubmit={handleSearchSubmit}
+        handleUseMyLocation={handleUseMyLocation}
+        handleAddSavedLocation={handleAddSavedLocation}
+        activeLocation={activeLocation}
+        savedLocations={savedLocations}
+        setActiveLocation={setActiveLocation}
+        handleDeleteLocation={handleDeleteLocation}
+      />
 
         {loading && <div className="infoBanner">Loading weather data...</div>}
 

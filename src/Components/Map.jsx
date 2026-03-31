@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import "../Styling/Map.css";
 
 // fix the default Leaflet icon bug in React - otherwise it feels like a watermark on top of the map
 delete L.Icon.Default.prototype._getIconUrl;

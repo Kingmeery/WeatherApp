@@ -1,0 +1,121 @@
+/* =========================================================
+   HERO CARD
+========================================================= */
+.heroCard {
+  text-align: center;
+}
+
+.heroTop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.condition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.weatherIconMain {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+}
+
+.condText {
+  text-align: left;
+}
+
+.condTitle {
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.condSub {
+  color: var(--page-soft);
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.tempCenterBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.heroLocation {
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--page-hero-location-bg);
+  border: 2px solid var(--page-hero-location-border);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--page-hero-location-text);
+  text-align: center;
+}
+
+.temp {
+  font-size: 102px;
+  line-height: 0.95;
+  font-weight: 900;
+}
+
+.feels {
+  margin-top: 12px;
+  color: var(--page-soft);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.dateLine {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.themeContrast .condTitle,
+.themeContrast .temp,
+.themeContrast .dateLine {
+  color: #000000;
+}
+
+@media (max-width: 900px) {
+  .temp {
+    font-size: 78px;
+  }
+
+  .dateLine {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .condTitle {
+    font-size: 28px;
+  }
+
+  .weatherIconMain {
+    width: 76px;
+    height: 76px;
+  }
+
+  .heroLocation {
+    font-size: 18px;
+    padding: 7px 12px;
+  }
+
+  .temp {
+    font-size: 62px;
+  }
+
+  .dateLine {
+    font-size: 20px;
+  }
+}

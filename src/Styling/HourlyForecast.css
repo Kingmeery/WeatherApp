@@ -1,0 +1,56 @@
+/* =========================================================
+   HOURLY FORECAST
+========================================================= */
+.hourlyRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.hourCard {
+  padding: 18px 16px;
+  border-radius: 20px;
+  background: var(--page-secondary-button-bg);
+  color: var(--page-secondary-button-text);
+  border: 2px solid var(--page-border);
+  text-align: center;
+}
+
+.hourTime,
+.hourMeta {
+  font-size: 13px;
+  color: var(--page-soft);
+}
+
+.hourIcon {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  margin: 10px auto;
+  display: block;
+}
+
+.hourTemp {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.hourMeta {
+  margin-top: 6px;
+}
+
+.themeContrast .hourTemp {
+  color: #000000;
+}
+
+@media (max-width: 900px) {
+  .hourlyRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .hourlyRow {
+    grid-template-columns: 1fr;
+  }
+}

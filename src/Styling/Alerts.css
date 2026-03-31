@@ -1,0 +1,17 @@
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.alertsList {
+  display: grid;
+  gap: 10px;
+}
+
+.alertItem {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: var(--page-alert-bg);
+  color: var(--page-secondary-button-text);
+  border: 2px solid var(--page-border);
+  font-weight: 600;
+}

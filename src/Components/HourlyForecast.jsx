@@ -1,3 +1,4 @@
+import "../Styling/HourlyForecast.css";
 export default function HourlyForecast({
   hourlyForecast,
   selectedDay,

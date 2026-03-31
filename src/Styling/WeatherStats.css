@@ -1,0 +1,45 @@
+/* =========================================================
+   DETAILED WEATHER
+========================================================= */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.statCard {
+  padding: 22px;
+  border-radius: 20px;
+  background: var(--page-secondary-button-bg);
+  color: var(--page-secondary-button-text);
+  border: 2px solid var(--page-border);
+}
+
+.statLabel {
+  font-size: 13px;
+  color: var(--page-soft);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.statValue {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.themeContrast .statValue {
+  color: #000000;
+}
+
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}

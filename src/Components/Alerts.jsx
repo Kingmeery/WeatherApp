@@ -1,3 +1,4 @@
+import "../Styling/Alerts.css";
 export default function Alerts({ alerts }) {
   if (alerts.length === 0) return null;
 

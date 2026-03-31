@@ -1,3 +1,4 @@
+import "../Styling/WeatherStats.css";
 export default function WeatherStats({
   currentWeather,
   selectedDay,

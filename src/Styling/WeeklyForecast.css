@@ -1,0 +1,72 @@
+/* =========================================================
+   WEEKLY FORECAST
+========================================================= */
+.weekGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.dayCard {
+  padding: 18px 16px;
+  border-radius: 20px;
+  background: var(--page-secondary-button-bg);
+  color: var(--page-secondary-button-text);
+  border: 2px solid var(--page-border);
+  text-align: center;
+}
+
+.dayName {
+  font-weight: 800;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.dayIcon {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  margin: 0 auto 8px;
+  display: block;
+}
+
+.dayDesc,
+.dayRain,
+.mutedTemp {
+  color: var(--page-soft);
+}
+
+.dayDesc {
+  min-height: 34px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.dayTemps {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.dayRain {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.themeContrast .dayName {
+  color: #000000;
+}
+
+@media (max-width: 900px) {
+  .weekGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .weekGrid {
+    grid-template-columns: 1fr;
+  }
+}

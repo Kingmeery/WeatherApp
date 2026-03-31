@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../Styling/GardenAdvice.css";
 
 export default function GardenAdvice({
   selectedDay,

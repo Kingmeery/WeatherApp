@@ -1,3 +1,4 @@
+import "../Styling/WeeklyForecast.css";
 export default function WeeklyForecast({
   weeklyForecast,
   tempUnit,
