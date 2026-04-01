@@ -9,6 +9,7 @@ export default function CropRiskPage({
 }) {
   return (
     <>
+      {/* Page intro and back control */}
       <section className="sectionCard cropRiskIntroCard">
         <div className="cropRiskPageHeader">
           <div>
@@ -21,6 +22,7 @@ export default function CropRiskPage({
             </p>
           </div>
 
+          {/* Return to main weather page */}
           <button
             type="button"
             className="actionButton cropRiskBackButton"
@@ -31,6 +33,7 @@ export default function CropRiskPage({
         </div>
       </section>
 
+      {/* Graph and daily risk cards */}
       <CropRiskGraph
         locationName={locationName}
         forecastList={forecastList}
