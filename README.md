@@ -8,11 +8,14 @@ Please ensure you install the latest form of React and all the dependencies befo
 
 ### 'npm install' 
 
-Runs the installation process for React. If the app does not work, please run the following commands 
+Runs the installation process for React. If the app does not work due to missing dependecies, please run the following commands. 
 
 ### 'npm install leaflet react-leaflet' 
 
 This helps install the assets required to the use the apps map features.
+
+### 'npm install recharts'
+This helps install the assets required to use the apps chart features
 
 ## Available Scripts
 
