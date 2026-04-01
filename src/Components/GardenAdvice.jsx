@@ -21,13 +21,13 @@ export default function GardenAdvice({
 
   // Convert each hour into a more readable time period
   function getTimePeriod(hour) {
-    if (hour < 6) return "overnight";
-    if (hour < 10) return "early morning";
-    if (hour < 12) return "late morning";
-    if (hour < 15) return "early afternoon";
-    if (hour < 18) return "late afternoon";
-    if (hour < 21) return "evening";
-    return "night";
+    if (hour < 6) return "00:00-06:00";
+    if (hour < 10) return "06:00-10:00";
+    if (hour < 12) return "10:00-12:00";
+    if (hour < 15) return "12:00-15:00";
+    if (hour < 18) return "15:00-18:00";
+    if (hour < 21) return "18:00-21:00";
+    return "21:00-00:00";
   }
 
   // Collect unique time periods from valid forecast entries
@@ -56,13 +56,11 @@ export default function GardenAdvice({
       return periods[0];
     }
 
-    if (periods.length === 2) {
-      return `${periods[0]} and ${periods[1]}`;
+    if (periods.length >= 2) {
+      return periods[0];
     }
 
-    return `${periods.slice(0, -1).join(", ")}, and ${
-      periods[periods.length - 1]
-    }`;
+    return periods[0];
   }
 
   // Judge overall daily conditions for each farm activity
@@ -178,7 +176,7 @@ export default function GardenAdvice({
   // Build the message shown for the best time window on the selected day
   function buildOptimalTimeText(type, day) {
     if (!day?.entries?.length) {
-      return "Optimal time: no time-specific guidance is available.";
+      return "Optimal time: no time range is available.";
     }
 
     const validEntries = getValidEntries(type, day);
@@ -187,18 +185,18 @@ export default function GardenAdvice({
 
     if (condition === "good") {
       if (coverage === 0) {
-        return "Optimal time: conditions are generally favourable through most of the day.";
+        return "Optimal time: suitable throughout the day.";
       }
 
       if (coverage > 0.7) {
-        return "Optimal time: conditions are suitable for most of the day.";
+        return "Optimal time: suitable throughout the day.";
       }
 
       const periods = summariseTimePeriods(validEntries);
       const periodText = formatPeriodsForText(periods);
 
       if (!periodText) {
-        return "Optimal time: conditions are suitable for much of the day.";
+        return "Optimal time: suitable throughout the day.";
       }
 
       return `Optimal time: ${periodText}.`;
@@ -206,30 +204,14 @@ export default function GardenAdvice({
 
     if (condition === "mixed") {
       if (coverage === 0) {
-        if (type === "irrigation") {
-          return "Optimal time: use the driest part of the day if irrigation is still needed.";
-        }
-
-        if (type === "fieldwork") {
-          return "Optimal time: use the calmest and driest period available.";
-        }
-
-        if (type === "planting") {
-          return "Optimal time: proceed during the steadier parts of the day if needed.";
-        }
-
-        if (type === "harvesting") {
-          return "Optimal time: use the driest and calmest part of the day.";
-        }
-
-        return "Optimal time: no strongly favourable window stands out today.";
+        return "Optimal time: no clearly suitable time range stands out today.";
       }
 
       const periods = summariseTimePeriods(validEntries);
       const periodText = formatPeriodsForText(periods);
 
       if (!periodText) {
-        return "Optimal time: only limited windows look suitable today.";
+        return "Optimal time: only limited time ranges look suitable today.";
       }
 
       return `Optimal time: ${periodText}.`;
@@ -243,7 +225,7 @@ export default function GardenAdvice({
       return "Optimal time: wait for drier and less windy conditions.";
     }
 
-    return "Optimal time: conditions are not especially favourable today.";
+    return "Optimal time: conditions are not favourable today.";
   }
 
   // Compare the next few days and recommend the strongest option
