@@ -10,24 +10,29 @@ import {
 } from "recharts";
 import "../Styling/CropRisk.css";
 
+/* Keep values within a safe range */
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
 
+/* Round values for cleaner display */
 function round(value) {
   return Math.round(value * 10) / 10;
 }
 
+/* Convert score into a simple risk label */
 function getRiskLevel(score) {
   if (score >= 70) return "High";
   if (score >= 40) return "Medium";
   return "Low";
 }
 
+/* Identify the strongest risk factor */
 function getMainDriver(drivers) {
   return Object.entries(drivers).sort((a, b) => b[1] - a[1])[0]?.[0] || "Stable";
 }
 
+/* Build one crop risk score from key weather factors */
 function calculateRisk(day) {
   const maxTemp = day.maxTemp ?? 0;
   const rainChance = day.maxRainChance ?? 0;
@@ -56,6 +61,7 @@ function calculateRisk(day) {
 }
 
 export default function CropRiskGraph({ forecastList = [], locationName }) {
+  /* Group forecast entries into daily crop risk summaries */
   const chartData = useMemo(() => {
     if (!forecastList.length) return [];
 
@@ -116,6 +122,7 @@ export default function CropRiskGraph({ forecastList = [], locationName }) {
     });
   }, [forecastList]);
 
+  /* Show one average value for the full forecast period */
   const averageRisk = useMemo(() => {
     if (!chartData.length) return 0;
     return Math.round(
@@ -123,6 +130,7 @@ export default function CropRiskGraph({ forecastList = [], locationName }) {
     );
   }, [chartData]);
 
+  /* Handle missing forecast data safely */
   if (!chartData.length) {
     return (
       <section className="sectionCard cropRiskCard">
@@ -144,12 +152,14 @@ export default function CropRiskGraph({ forecastList = [], locationName }) {
           </div>
         </div>
 
+        {/* Highlight overall risk at a glance */}
         <div className="cropRiskScoreCard">
           <div className="cropRiskScoreLabel">Average Risk</div>
           <div className="cropRiskScoreValue">{averageRisk}</div>
         </div>
       </div>
 
+      {/* Plot daily risk trend across the forecast */}
       <div className="cropRiskChartWrap">
         <ResponsiveContainer width="100%" height={320}>
           <LineChart data={chartData} margin={{ top: 8, right: 12, left: -20, bottom: 0 }}>
@@ -177,6 +187,7 @@ export default function CropRiskGraph({ forecastList = [], locationName }) {
         </ResponsiveContainer>
       </div>
 
+      {/* Show a card breakdown for each day */}
       <div className="cropRiskStatsGrid">
         {chartData.map((item) => (
           <div className="cropRiskStatCard" key={item.fullDate}>
