@@ -7,13 +7,14 @@ import "./App.css";
 */
 import SettingsPanel from "./Components/SettingsPanel";
 import LocationManager from "./Components/LocationManager";
-import HeroWeather from "./Components/MainWeather";
+import MainWeather from "./Components/MainWeather";
 import Alerts from "./Components/Alerts";
 import WeatherStats from "./Components/WeatherStats";
 import HourlyForecast from "./Components/HourlyForecast";
 import WeeklyForecast from "./Components/WeeklyForecast";
 import GardenAdvice from "./Components/GardenAdvice";
 import Map from "./Components/Map";
+import CropRiskPage from "./Components/CropRiskPage";
 
 
 /*
@@ -28,8 +29,6 @@ import {
   groupDailyForecast,
   formatTemperature,
 } from "./Utils/WeatherHelpers";
-import MainWeather from "./Components/MainWeather";
-import CropRiskPage from "./Components/CropRiskPage";
 
 /*
   OpenWeather API key
