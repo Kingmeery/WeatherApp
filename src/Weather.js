@@ -7,7 +7,7 @@ import "./App.css";
 */
 import SettingsPanel from "./Components/SettingsPanel";
 import LocationManager from "./Components/LocationManager";
-import HeroWeather from "./Components/HeroWeather";
+import HeroWeather from "./Components/MainWeather";
 import Alerts from "./Components/Alerts";
 import WeatherStats from "./Components/WeatherStats";
 import HourlyForecast from "./Components/HourlyForecast";
@@ -27,6 +27,7 @@ import {
   groupDailyForecast,
   formatTemperature,
 } from "./Utils/WeatherHelpers";
+import MainWeather from "./Components/MainWeather";
 
 /*
   OpenWeather API key
@@ -440,7 +441,7 @@ export default function Weather() {
 
         {currentWeather && (
           <>
-            <HeroWeather
+            <MainWeather
               currentWeather={currentWeather}
               tempUnit={tempUnit}
               formatTemperature={formatTemperature}

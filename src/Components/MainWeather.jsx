@@ -1,6 +1,6 @@
-import "../Styling/HeroWeather.css";
+import "../Styling/MainWeather.css";
 
-export default function HeroWeather({
+export default function MainWeather({
   currentWeather,
   tempUnit,
   formatTemperature,
