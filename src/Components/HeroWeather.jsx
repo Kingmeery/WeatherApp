@@ -1,4 +1,5 @@
 import "../Styling/HeroWeather.css";
+
 export default function HeroWeather({
   currentWeather,
   tempUnit,
@@ -28,17 +29,21 @@ export default function HeroWeather({
       </div>
 
       <div className="tempCenterBlock">
+        {/* Display location name */}
         <div className="heroLocation">{currentWeather.name}</div>
 
+        {/* Format temperature based on selected unit */}
         <div className="temp">
           {formatTemperature(currentWeather.main.temp, tempUnit)}
         </div>
 
+        {/* Show "feels like" temperature */}
         <div className="feels">
           Feels like {formatTemperature(currentWeather.main.feels_like, tempUnit)}
         </div>
       </div>
 
+      {/* Format and display full date */}
       <div className="dateLine">{formatFullDate(currentWeather.dt)}</div>
     </section>
   );

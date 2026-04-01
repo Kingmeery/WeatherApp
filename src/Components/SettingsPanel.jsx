@@ -1,4 +1,5 @@
 import "../Styling/SettingsPanel.css";
+
 export default function SettingsPanel({
   settingsOpen,
   setSettingsOpen,
@@ -9,6 +10,7 @@ export default function SettingsPanel({
 }) {
   return (
     <>
+      {/* Show settings button only when panel is closed */}
       {!settingsOpen && (
         <button
           className="settingsToggle"
@@ -19,9 +21,12 @@ export default function SettingsPanel({
         </button>
       )}
 
+      {/* Side panel for settings */}
       <aside className={`settingsPanel ${settingsOpen ? "settingsPanelOpen" : ""}`}>
         <div className="settingsHeader">
           <h2>Settings</h2>
+
+          {/* Close panel */}
           <button
             className="settingsClose"
             onClick={() => setSettingsOpen(false)}
@@ -33,6 +38,8 @@ export default function SettingsPanel({
 
         <div className="settingsBlock">
           <div className="settingsLabel">Display Mode</div>
+
+          {/* Toggle between normal and high contrast theme */}
           <button
             className="miniButton"
             onClick={() =>
@@ -45,7 +52,9 @@ export default function SettingsPanel({
 
         <div className="settingsBlock">
           <div className="settingsLabel">Temperature Unit</div>
+
           <div className="settingsRow">
+            {/* Set temperature to Celsius */}
             <button
               className={`miniButton ${tempUnit === "C" ? "activeSetting" : ""}`}
               onClick={() => setTempUnit("C")}
@@ -53,6 +62,7 @@ export default function SettingsPanel({
               Celsius °C
             </button>
 
+            {/* Set temperature to Fahrenheit */}
             <button
               className={`miniButton ${tempUnit === "F" ? "activeSetting" : ""}`}
               onClick={() => setTempUnit("F")}
@@ -63,6 +73,7 @@ export default function SettingsPanel({
         </div>
       </aside>
 
+      {/* Overlay closes panel when clicking outside */}
       {settingsOpen && (
         <div
           className="settingsOverlay"

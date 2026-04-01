@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "../Styling/Map.css";
 
-// fix the default Leaflet icon bug in React - otherwise it feels like a watermark on top of the map
+// Fix default Leaflet marker icons not loading correctly in React
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
@@ -12,7 +12,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-// now updates the TEMPORARY pin state instead of fetching immediately
+// Handle map clicks by updating a temporary marker instead of fetching immediately
 function MapEvents({ setTempMarker }) {
   useMapEvents({
     click(e) {
@@ -22,18 +22,22 @@ function MapEvents({ setTempMarker }) {
   return null;
 }
 
+// Smoothly move map to new coordinates when they change
 function RecenterMap({ lat, lon }) {
   const map = useMap();
+
   useEffect(() => {
     map.flyTo([lat, lon], 11, { animate: true });
   }, [lat, lon, map]);
+
   return null;
 }
 
 export default function Map({ lat, lon, onLocationSelect, onClose }) {
+  // Use provided coords or fallback to default location
   const initialPosition = [lat || 51.505, lon || -0.09];
   
-  // state to track where the user clicks before confirming, cause otherwise it fetches with no animation of where the user chose
+  // Track where user clicks before confirming location
   const [tempMarker, setTempMarker] = useState(initialPosition);
 
   return (
@@ -51,13 +55,15 @@ export default function Map({ lat, lon, onLocationSelect, onClose }) {
               attribution='&copy; <a href="https://carto.com/">CARTO</a>'
               url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
             />
-            {/* marker  follows the tempMarker state */}
+
+            {/* Marker follows the selected temp position */}
             <Marker position={tempMarker} />
+
             <MapEvents setTempMarker={setTempMarker} />
             <RecenterMap lat={initialPosition[0]} lon={initialPosition[1]} />
           </MapContainer>
 
-          {/* new confirm button floating at the bottom of the map */}
+          {/* Confirm selected location */}
           <div className="mapConfirmArea">
             <button 
               className="actionButton confirmPinBtn" 

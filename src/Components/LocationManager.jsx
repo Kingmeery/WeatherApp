@@ -13,6 +13,7 @@ export default function LocationManager({
 }) {
   return (
     <section className="sectionCard searchCard">
+      {/* Search form */}
       <form className="searchRow" onSubmit={handleSearchSubmit}>
         <input
           className="input"
@@ -35,6 +36,7 @@ export default function LocationManager({
         </button>
       </form>
 
+      {/* Save current location + show default */}
       <div className="locationActions">
         <button
           type="button"
@@ -58,6 +60,7 @@ export default function LocationManager({
               }`}
               key={location}
             >
+              {/* Switch active location */}
               <button
                 type="button"
                 className="savedChipMain"
@@ -66,6 +69,7 @@ export default function LocationManager({
                 {location}
               </button>
 
+              {/* Remove saved location */}
               <button
                 type="button"
                 className="savedChipDelete"

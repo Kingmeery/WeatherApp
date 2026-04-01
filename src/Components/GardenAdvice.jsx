@@ -7,15 +7,19 @@ export default function GardenAdvice({
   selectedDayIndex,
   setSelectedDayIndex,
 }) {
+  // Tracks which action card is currently open in the modal
   const [activeAction, setActiveAction] = useState(null);
 
+  // Don't render advice until a day is available
   if (!selectedDay) return null;
 
+  // Look at the next three days when suggesting the best day
   const nextThreeDays = groupedDays.slice(
     selectedDayIndex,
     selectedDayIndex + 3
   );
 
+  // Convert each hour into a more readable time period
   function getTimePeriod(hour) {
     if (hour < 6) return "overnight";
     if (hour < 10) return "early morning";
@@ -26,6 +30,7 @@ export default function GardenAdvice({
     return "night";
   }
 
+  // Collect unique time periods from valid forecast entries
   function summariseTimePeriods(entries) {
     if (!entries.length) return [];
 
@@ -43,6 +48,7 @@ export default function GardenAdvice({
     return uniquePeriods;
   }
 
+  // Format time periods into a readable sentence
   function formatPeriodsForText(periods) {
     if (periods.length === 0) return "";
 
@@ -59,6 +65,7 @@ export default function GardenAdvice({
     }`;
   }
 
+  // Judge overall daily conditions for each farm activity
   function getDayCondition(type, day) {
     if (type === "irrigation") {
       if (day.maxRainChance <= 20) return "good";
@@ -103,6 +110,7 @@ export default function GardenAdvice({
     return "mixed";
   }
 
+  // Filter forecast entries that are suitable for each action
   function getValidEntries(type, day) {
     if (!day?.entries?.length) return [];
 
@@ -167,6 +175,7 @@ export default function GardenAdvice({
     return [];
   }
 
+  // Build the message shown for the best time window on the selected day
   function buildOptimalTimeText(type, day) {
     if (!day?.entries?.length) {
       return "Optimal time: no time-specific guidance is available.";
@@ -237,6 +246,7 @@ export default function GardenAdvice({
     return "Optimal time: conditions are not especially favourable today.";
   }
 
+  // Compare the next few days and recommend the strongest option
   function getBestDay(type) {
     if (!nextThreeDays.length) {
       return "Optimal day: no clear recommendation is available.";
@@ -314,6 +324,7 @@ export default function GardenAdvice({
     return `Optimal day: ${best.day.fullLabel}.`;
   }
 
+  // Store all farm action cards in one array so they can be rendered consistently
   const actionCards = [
     {
       key: "irrigation",
@@ -461,6 +472,7 @@ export default function GardenAdvice({
     <section className="sectionCard">
       <div className="sectionTitle">Farm Actions</div>
 
+      {/* Day selector for switching advice */}
       <div className="adviceDayToggle">
         {groupedDays.map((day, index) => (
           <button
@@ -476,6 +488,7 @@ export default function GardenAdvice({
         ))}
       </div>
 
+      {/* Main farm action cards */}
       <div className="actionGrid">
         {actionCards.map((card) => (
           <button
@@ -494,6 +507,7 @@ export default function GardenAdvice({
         ))}
       </div>
 
+      {/* Show extra detail in a modal when an action is selected */}
       {activeAction && (
         <div
           className="adviceModalOverlay"

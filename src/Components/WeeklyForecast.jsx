@@ -1,4 +1,5 @@
 import "../Styling/WeeklyForecast.css";
+
 export default function WeeklyForecast({
   weeklyForecast,
   tempUnit,
@@ -12,6 +13,7 @@ export default function WeeklyForecast({
       <div className="weekGrid">
         {weeklyForecast.map((day) => (
           <div className="dayCard" key={day.dt}>
+            {/* Convert Unix timestamp to day name */}
             <div className="dayName">{formatDayFromUnix(day.dt)}</div>
 
             <img
@@ -22,6 +24,7 @@ export default function WeeklyForecast({
 
             <div className="dayDesc">{day.description}</div>
 
+            {/* Show max and min temperatures */}
             <div className="dayTemps">
               <span>{formatTemperature(day.max, tempUnit)}</span>
               <span className="mutedTemp">
@@ -29,6 +32,7 @@ export default function WeeklyForecast({
               </span>
             </div>
 
+            {/* Rain probability for the day */}
             <div className="dayRain">Rain {day.pop}%</div>
           </div>
         ))}

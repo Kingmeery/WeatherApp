@@ -1,13 +1,16 @@
+// Convert Unix timestamp to readable time (HH:MM)
 export function formatTimeFromUnix(unix) {
   const d = new Date(unix * 1000);
   return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
+// Convert Unix timestamp to short weekday (e.g. Mon)
 export function formatDayFromUnix(unix) {
   const d = new Date(unix * 1000);
   return d.toLocaleDateString([], { weekday: "short" });
 }
 
+// Convert Unix timestamp to full date (e.g. Monday 12 Mar)
 export function formatFullDate(unix) {
   const d = new Date(unix * 1000);
   return d.toLocaleDateString([], {
@@ -17,6 +20,7 @@ export function formatFullDate(unix) {
   });
 }
 
+// Simple frost risk classification based on temperature
 export function getFrostRisk(temp) {
   if (typeof temp !== "number") return "—";
   if (temp <= 1) return "HIGH";
@@ -24,6 +28,7 @@ export function getFrostRisk(temp) {
   return "NONE";
 }
 
+// Build alert messages based on current weather + forecast
 export function buildAlerts(current, forecastList) {
   const alerts = [];
 
@@ -31,22 +36,27 @@ export function buildAlerts(current, forecastList) {
   const wind = current?.wind?.speed;
   const weatherMain = current?.weather?.[0]?.main?.toLowerCase() || "";
 
+  // High temperature warning
   if (typeof currentTemp === "number" && currentTemp >= 30) {
     alerts.push("Heat alert: high temperature may affect crops and irrigation.");
   }
 
+  // Frost warning
   if (typeof currentTemp === "number" && currentTemp <= 1) {
     alerts.push("Frost alert: temperatures are near or below freezing.");
   }
 
+  // Strong wind warning
   if (typeof wind === "number" && wind >= 12) {
     alerts.push("Strong wind alert: spraying and field work may be affected.");
   }
 
+  // Storm detection
   if (weatherMain.includes("thunder")) {
     alerts.push("Storm alert: thunderstorms detected.");
   }
 
+  // Check if heavy rain is expected in upcoming forecast
   const nextRainy = forecastList?.some((item) => (item.pop || 0) >= 0.6);
 
   if (nextRainy) {
@@ -56,6 +66,7 @@ export function buildAlerts(current, forecastList) {
   return alerts;
 }
 
+// Group 3-hour forecast data into daily summaries
 export function groupDailyForecast(list) {
   if (!Array.isArray(list)) return [];
 
@@ -74,6 +85,7 @@ export function groupDailyForecast(list) {
   return Object.values(byDay)
     .slice(0, 5)
     .map((dayItems) => {
+      // Pick a representative time (midday if possible)
       const middayItem =
         dayItems.find((item) => {
           const hour = new Date(item.dt * 1000).getHours();
@@ -90,6 +102,8 @@ export function groupDailyForecast(list) {
         description: middayItem.weather?.[0]?.description || "",
         max,
         min,
+
+        // Use highest rain probability of the day
         pop: Math.round(
           Math.max(...dayItems.map((item) => (item.pop || 0) * 100))
         ),
@@ -97,10 +111,12 @@ export function groupDailyForecast(list) {
     });
 }
 
+// Convert Celsius to Fahrenheit
 export function toFahrenheit(celsius) {
   return (celsius * 9) / 5 + 32;
 }
 
+// Format temperature based on selected unit
 export function formatTemperature(temp, unit) {
   if (typeof temp !== "number") return "—";
   const value = unit === "F" ? toFahrenheit(temp) : temp;

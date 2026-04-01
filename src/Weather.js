@@ -15,7 +15,6 @@ import WeeklyForecast from "./Components/WeeklyForecast";
 import GardenAdvice from "./Components/GardenAdvice";
 import Map from "./Components/Map";
 
-
 /*
   Import helper functions
 */
@@ -42,26 +41,33 @@ export default function Weather() {
     STATE VARIABLES
   */
 
+  // Stores the user's search input
   const [query, setQuery] = useState("");
 
+  // Stores the current active location
   const [activeLocation, setActiveLocation] = useState(
     localStorage.getItem("defaultLocation") || "Luton"
   );
 
+  // Stores the user's saved locations
   const [savedLocations, setSavedLocations] = useState(() => {
     const stored = localStorage.getItem("savedLocations");
     return stored ? JSON.parse(stored) : ["Luton"];
   });
 
+  // Stores current weather data and forecast data
   const [currentWeather, setCurrentWeather] = useState(null);
   const [forecastList, setForecastList] = useState([]);
 
+  // Stores loading and error states
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Controls settings panel and map modal visibility
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
 
+  // Stores user display preferences
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "normal"
   );
@@ -70,24 +76,29 @@ export default function Weather() {
     localStorage.getItem("tempUnit") || "C"
   );
 
+  // Tracks which day is selected in the advice section
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
 
   /*
     SAVE SETTINGS TO LOCAL STORAGE
   */
 
+  // Save updated locations list
   useEffect(() => {
     localStorage.setItem("savedLocations", JSON.stringify(savedLocations));
   }, [savedLocations]);
 
+  // Save current default location
   useEffect(() => {
     localStorage.setItem("defaultLocation", activeLocation);
   }, [activeLocation]);
 
+  // Save selected theme
   useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Save selected temperature unit
   useEffect(() => {
     localStorage.setItem("tempUnit", tempUnit);
   }, [tempUnit]);
@@ -96,6 +107,7 @@ export default function Weather() {
     FETCH WEATHER WHEN LOCATION CHANGES
   */
 
+  // Reload weather whenever the active location changes
   useEffect(() => {
     fetchWeatherByCity(activeLocation);
   }, [activeLocation]);
@@ -104,6 +116,7 @@ export default function Weather() {
     FETCH WEATHER BY CITY NAME
   */
 
+  // Fetch current weather and forecast for a searched city
   async function fetchWeatherByCity(city) {
     if (!city.trim()) return;
 
@@ -125,6 +138,8 @@ export default function Weather() {
 
       setCurrentWeather(currentResponse.data);
       setForecastList(forecastResponse.data.list || []);
+
+      // Reset selected day when new forecast data is loaded
       setSelectedDayIndex(0);
     } catch (err) {
       setError("Could not fetch weather for that location.");
@@ -139,6 +154,7 @@ export default function Weather() {
     FETCH WEATHER USING LATITUDE + LONGITUDE
   */
 
+  // Fetch weather using coordinates chosen from GPS or map
   async function fetchWeatherByCoords(lat, lon) {
     try {
       setLoading(true);
@@ -157,7 +173,6 @@ export default function Weather() {
       setSelectedDayIndex(0);
 
       /*
-        IMPORTANT:
         Use the place name returned by the API
       */
       setActiveLocation(currentResponse.data.name);
@@ -172,6 +187,7 @@ export default function Weather() {
     SEARCH HANDLER
   */
 
+  // Submit a typed location search
   function handleSearchSubmit(e) {
     e.preventDefault();
 
@@ -185,6 +201,7 @@ export default function Weather() {
     SAVE CURRENT LOCATION
   */
 
+  // Add the current location to the saved list
   function handleAddSavedLocation() {
     const trimmed = activeLocation.trim();
 
@@ -198,11 +215,13 @@ export default function Weather() {
     DELETE SAVED LOCATION
   */
 
+  // Remove a location from the saved list
   function handleDeleteLocation(location) {
     const updated = savedLocations.filter((item) => item !== location);
 
     setSavedLocations(updated);
 
+    // Switch to another saved location if the active one is deleted
     if (location === activeLocation && updated.length > 0) {
       setActiveLocation(updated[0]);
     }
@@ -212,6 +231,7 @@ export default function Weather() {
     USE GPS LOCATION
   */
 
+  // Use the browser's geolocation to fetch local weather
   function handleUseMyLocation() {
     if (!navigator.geolocation) {
       setError("Geolocation is not supported on this device.");
@@ -235,17 +255,22 @@ export default function Weather() {
     SIMPLE DERIVED DATA
   */
 
+  // First 8 forecast entries for the hourly section
   const hourlyForecast = forecastList.slice(0, 8);
 
+  // Group forecast data into daily summaries
   const weeklyForecast = groupDailyForecast(forecastList);
 
+  // Build alert messages from current and forecast conditions
   const alerts = buildAlerts(currentWeather, forecastList);
 
+  // Use rain probability if available, otherwise fall back to cloud cover
   const rainfallChance =
     typeof forecastList[0]?.pop === "number"
       ? Math.round(forecastList[0].pop * 100)
       : currentWeather?.clouds?.all ?? 0;
 
+  // Group forecast entries by date for advice calculations
   const groupedDays = forecastList.length
     ? Object.entries(
         forecastList.reduce((acc, item) => {
@@ -263,7 +288,10 @@ export default function Weather() {
         .map(([date, entries], index) => {
           const temps = entries.map((entry) => entry.main.temp);
           const humidities = entries.map((entry) => entry.main.humidity);
+
+          // Convert wind speed from m/s to mph
           const winds = entries.map((entry) => entry.wind.speed * 2.237);
+
           const rainChances = entries.map((entry) =>
             typeof entry.pop === "number" ? Math.round(entry.pop * 100) : 0
           );
@@ -278,6 +306,7 @@ export default function Weather() {
           const maxWind = Math.max(...winds);
           const maxRainChance = Math.max(...rainChances);
 
+          // Label first day as Today, then use weekday names
           const label =
             index === 0
               ? "Today"
@@ -308,10 +337,12 @@ export default function Weather() {
         })
     : [];
 
+  // Select the day currently being used for farm advice
   const selectedDay = (() => {
     const forecastDay = groupedDays[selectedDayIndex];
 
     if (forecastDay) {
+      // Use live current weather for today instead of forecast averages
       if (selectedDayIndex === 0 && currentWeather) {
         return {
           ...forecastDay,
@@ -331,6 +362,7 @@ export default function Weather() {
       return forecastDay;
     }
 
+    // Fallback if no grouped forecast exists yet
     if (currentWeather) {
       return {
         date: new Date().toISOString().split("T")[0],

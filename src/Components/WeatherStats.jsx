@@ -1,4 +1,5 @@
 import "../Styling/WeatherStats.css";
+
 export default function WeatherStats({
   currentWeather,
   selectedDay,
@@ -7,6 +8,7 @@ export default function WeatherStats({
   rainfallChance,
   getFrostRisk,
 }) {
+  // Use today's live data or selected day's average values
   const temperature =
     selectedDay?.label === "Today"
       ? currentWeather.main.temp
@@ -17,6 +19,7 @@ export default function WeatherStats({
       ? rainfallChance
       : selectedDay?.maxRainChance ?? rainfallChance;
 
+  // Convert wind speed to mph
   const windValue =
     selectedDay?.label === "Today"
       ? Math.round(currentWeather.wind.speed * 2.237)
@@ -27,6 +30,7 @@ export default function WeatherStats({
       ? currentWeather.main.humidity
       : selectedDay?.avgHumidity ?? currentWeather.main.humidity;
 
+  // Calculate average pressure from forecast entries if needed
   const pressureValue =
     selectedDay?.label === "Today"
       ? currentWeather.main.pressure
