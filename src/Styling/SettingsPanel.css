@@ -113,6 +113,12 @@
   transform: translateY(-2px);
 }
 
+.settingsWideButton {
+  width: 100%;
+  justify-content: center;
+}
+
+
 @media (max-width: 560px) {
   .settingsPanel {
     width: 280px;

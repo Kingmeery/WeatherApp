@@ -7,6 +7,7 @@ export default function SettingsPanel({
   setTheme,
   tempUnit,
   setTempUnit,
+  onOpenCropRisk,
 }) {
   return (
     <>
@@ -47,6 +48,20 @@ export default function SettingsPanel({
             }
           >
             Switch to {theme === "normal" ? "High Contrast" : "Normal"} Mode
+          </button>
+        </div>
+
+        <div className="settingsBlock">
+          <div className="settingsLabel">Extended Features</div>
+
+          <button
+          className="miniButton settingsWideButton"
+          onClick={() => {
+            setSettingsOpen(false);
+            onOpenCropRisk();
+            }}
+          >
+            View Crop Risks
           </button>
         </div>
 

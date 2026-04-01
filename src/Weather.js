@@ -15,6 +15,7 @@ import WeeklyForecast from "./Components/WeeklyForecast";
 import GardenAdvice from "./Components/GardenAdvice";
 import Map from "./Components/Map";
 
+
 /*
   Import helper functions
 */
@@ -28,6 +29,7 @@ import {
   formatTemperature,
 } from "./Utils/WeatherHelpers";
 import MainWeather from "./Components/MainWeather";
+import CropRiskPage from "./Components/CropRiskPage";
 
 /*
   OpenWeather API key
@@ -67,6 +69,7 @@ export default function Weather() {
   // Controls settings panel and map modal visibility
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
+  const [showCropRisk, setShowCropRisk] = useState(false);
 
   // Stores user display preferences
   const [theme, setTheme] = useState(
@@ -401,6 +404,7 @@ export default function Weather() {
         setTheme={setTheme}
         tempUnit={tempUnit}
         setTempUnit={setTempUnit}
+        onOpenCropRisk={() => setShowCropRisk(true)}
       />
 
       <button
@@ -496,6 +500,16 @@ export default function Weather() {
           onClose={() => setMapOpen(false)}
         />
       )}
+    {showCropRisk && currentWeather && (
+      <div className="overlayPage">
+        <CropRiskPage
+          locationName={currentWeather.name}
+          forecastList={forecastList}
+          onBack={() => setShowCropRisk(false)}
+        />
+      </div>
+    )}
+
     </div>
   );
 }

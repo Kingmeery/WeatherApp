@@ -1,0 +1,196 @@
+/* =========================================================
+   CROP RISK PAGE
+========================================================= */
+.cropRiskIntroCard {
+  margin-bottom: 22px;
+}
+
+.cropRiskPageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.cropRiskPageTitle {
+  margin-bottom: 10px;
+}
+
+.cropRiskPageText,
+.cropRiskSubtext {
+  margin: 0;
+  color: var(--page-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.cropRiskBackButton {
+  white-space: nowrap;
+}
+
+/* =========================================================
+   CROP RISK GRAPH CARD
+========================================================= */
+.cropRiskCard {
+  overflow: hidden;
+}
+
+.cropRiskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.cropRiskScoreCard {
+  min-width: 150px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: var(--page-secondary-button-bg);
+  color: var(--page-secondary-button-text);
+  border: 2px solid var(--page-border);
+  text-align: center;
+}
+
+.cropRiskScoreLabel {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--page-soft);
+  font-weight: 800;
+}
+
+.cropRiskScoreValue {
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 900;
+  margin-top: 8px;
+}
+
+.cropRiskChartWrap {
+  padding: 18px 16px 8px;
+  border-radius: 24px;
+  background: var(--page-secondary-button-bg);
+  border: 2px solid var(--page-border);
+  margin-bottom: 18px;
+}
+
+.cropRiskBanner {
+  margin-bottom: 0;
+}
+
+.cropRiskStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.cropRiskStatCard {
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--page-secondary-button-bg);
+  color: var(--page-secondary-button-text);
+  border: 2px solid var(--page-border);
+}
+
+.cropRiskStatTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.cropRiskDay {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.cropRiskDate {
+  color: var(--page-soft);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.cropRiskBadge {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 2px solid var(--page-border);
+  background: var(--page-chip-active);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.cropRiskValue {
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1;
+  margin: 16px 0 10px;
+}
+
+.cropRiskDriver {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--page-soft);
+  margin-bottom: 12px;
+}
+
+.cropRiskMeta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 12px;
+  font-size: 13px;
+  color: var(--page-soft);
+}
+
+.themeContrast .cropRiskScoreCard,
+.themeContrast .cropRiskChartWrap,
+.themeContrast .cropRiskStatCard,
+.themeContrast .cropRiskBadge {
+  box-shadow: none;
+}
+
+.themeContrast .cropRiskScoreValue,
+.themeContrast .cropRiskValue,
+.themeContrast .cropRiskDay {
+  color: #000000;
+}
+
+.overlayPage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--page-bg);
+  z-index: 999;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+@media (max-width: 900px) {
+  .cropRiskStatsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .cropRiskPageHeader {
+    align-items: stretch;
+  }
+
+  .cropRiskBackButton {
+    width: 100%;
+  }
+
+  .cropRiskStatsGrid,
+  .cropRiskMeta {
+    grid-template-columns: 1fr;
+  }
+
+  .cropRiskChartWrap {
+    padding: 14px 10px 4px;
+  }
+}
